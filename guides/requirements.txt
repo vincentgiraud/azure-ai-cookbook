@@ -1,0 +1,10 @@
+azure-identity
+ipykernel
+pandas
+requests
+python-dotenv
+openai
+termcolor
+tiktoken
+matplotlib
+redlines

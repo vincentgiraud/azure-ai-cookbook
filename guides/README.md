@@ -1,4 +1,4 @@
-# Evaluation
+# Guides
 
 ## Install
 
@@ -9,6 +9,4 @@ pip install -r requirements.txt
 ```
 
 ## Run example
-```bash
-python my_example.py
-```
+Open a notebook, pick the `.venv` kernel, click `Run all`.
