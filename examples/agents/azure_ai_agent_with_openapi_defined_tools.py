@@ -1,7 +1,8 @@
 import os
+import jsonref
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
-from azure.ai.projects.models import BingGroundingTool
+from azure.ai.projects.models import OpenApiTool, OpenApiAnonymousAuthDetails
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -16,26 +17,23 @@ project_client = AIProjectClient.from_connection_string(
     conn_str=os.environ["PROJECT_CONNECTION_STRING"],
 )
 
-# [START create_agent_with_bing_grounding_tool]
-bing_connection = project_client.connections.get(connection_name=os.environ["BING_CONNECTION_NAME"])
-conn_id = bing_connection.id
+with open(os.path.join(os.path.dirname(__file__), 'catfacts_api.json'), 'r') as f:
+    openapi_spec = jsonref.loads(f.read())
 
-print(conn_id)
+# Create Auth object for the OpenApiTool (note that connection or managed identity auth setup requires additional setup in Azure)
+auth = OpenApiAnonymousAuthDetails()
 
-# Initialize agent bing tool and add the connection id
-bing = BingGroundingTool(connection_id=conn_id)
+# Initialize agent OpenAPI tool using the read in OpenAPI spec
+openapi = OpenApiTool(name="get_catfacts", spec=openapi_spec, description="Facts about cats", auth=auth)
 
-# Create agent with the bing tool and process assistant run
+# Create agent with OpenAPI tool and process assistant run
 with project_client:
     agent = project_client.agents.create_agent(
         model=os.environ["MODEL_DEPLOYMENT_NAME"],
         name="my-assistant",
         instructions="You are a helpful assistant",
-        tools=bing.definitions,
-        headers={"x-ms-enable-preview": "true"},
+        tools=openapi.definitions
     )
-    # [END create_agent_with_bing_grounding_tool]
-
     print(f"Created agent, ID: {agent.id}")
 
     # Create thread for communication
@@ -46,7 +44,7 @@ with project_client:
     message = project_client.agents.create_message(
         thread_id=thread.id,
         role="user",
-        content="What is the latest Microsoft stock price?",
+        content="Tell me a cat fact",
     )
     print(f"Created message, ID: {message.id}")
 

@@ -26,7 +26,7 @@ with project_client:
 
     # The CodeInterpreterTool needs to be included in creation of the agent
     agent = project_client.agents.create_agent(
-        model="gpt-4o-mini",
+        model=os.environ["MODEL_DEPLOYMENT_NAME"],
         name="my-agent",
         instructions="You are helpful agent",
         tools=code_interpreter.definitions,
