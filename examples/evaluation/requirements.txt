@@ -2,3 +2,4 @@ matplotlib
 python-dotenv
 azure-ai-projects
 azure-ai-evaluation
+ipykernel
