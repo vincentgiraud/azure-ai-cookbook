@@ -1,0 +1,9 @@
+python-dotenv
+azure-core
+azure-search-documents
+azure-storage-blob
+azure-identity
+openai
+aiohttp
+ipywidgets
+ipykernel

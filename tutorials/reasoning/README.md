@@ -1,4 +1,6 @@
-# Guides
+# Reasoning
+
+Credits `SC-OpenAI-o1-C4-platform` from https://learn.deeplearning.ai/courses/reasoning-with-o1
 
 ## Install
 
@@ -8,5 +10,5 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Run example
+## Run
 Open a notebook, pick the `.venv` kernel, click `Run all`.

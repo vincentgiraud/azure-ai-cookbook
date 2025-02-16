@@ -1,4 +1,4 @@
-# Evaluation
+# RAG
 
 ## Install
 

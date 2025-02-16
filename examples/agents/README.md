@@ -8,7 +8,10 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Run example
+## Run
 ```bash
 python my_example.py
 ```
+
+## TODO
+Convert files to notebooks for consistency
