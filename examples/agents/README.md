@@ -14,4 +14,4 @@ python my_example.py
 ```
 
 ## TODO
-Convert files to notebooks for consistency
+Convert files to notebooks for consistency, use uv.

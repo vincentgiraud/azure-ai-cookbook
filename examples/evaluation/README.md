@@ -1,12 +1,22 @@
 # Evaluation
 
 ## Install
+Install the [azd CLI](https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/install-azd) for logging in.
+
+Make sure you have the [uv](https://docs.astral.sh/uv/getting-started/installation) package manager installed.
+
+Create and activate virtual environment:
 
 ```bash
-python -m venv .venv
-.venv\Scripts\activate.bat [if not Windows: source .venv/bin/activate]
-pip install -r requirements.txt
+uv venv --python=python3.12 .venv
+
+# Windows:
+.venv\Scripts\activate.bat
+# Unix/MacOS:
+source .venv/bin/activate
+
+uv pip install -r requirements.txt
 ```
 
 ## Run
-Open a notebook, pick the `.venv` kernel (in VSC you may need to directly open the subfoder for it to be available), click `Run all`.
+Open a notebook, pick the `.venv` kernel (in VS Code you may need to directly open the subfolder for it to be available), click `Run all`.
