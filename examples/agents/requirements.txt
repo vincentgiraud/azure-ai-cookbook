@@ -8,3 +8,4 @@ autogen_ext
 tiktoken
 openai
 azure-identity
+semantic-kernel

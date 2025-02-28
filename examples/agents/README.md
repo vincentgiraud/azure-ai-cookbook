@@ -21,4 +21,5 @@ uv pip install -r requirements.txt
 
 ## Run
 
-Open a notebook, pick the `.venv` kernel (in VS Code you may need to directly open the subfolder for it to be available), click `Run all`.
+- For notebooks: pick the `.venv` kernel (in VS Code you may need to directly open the subfolder for it to be available), click `Run all`
+- For scripts: `python my_file.py` or click `Run Python File`
