@@ -1,0 +1,8 @@
+python-dotenv
+smolagents
+smolagents[gradio]
+semantic-kernel
+arize-phoenix 
+opentelemetry-sdk 
+opentelemetry-exporter-otlp 
+openinference-instrumentation-smolagents
