@@ -131,6 +131,7 @@ RESPONSE:
         "Ready! Type your input, or 'exit' to quit, 'reset' to restart the conversation. "
         "You may pass in a file path using @<path_to_file>."
     )
+    # Write an article on how to design a hierachy of agents for an Enterprise. Take the example of the ficticious ERP software company ContosoERP to handle new use cases leveraging their existing APIs and services
 
     is_complete = False
     while not is_complete:

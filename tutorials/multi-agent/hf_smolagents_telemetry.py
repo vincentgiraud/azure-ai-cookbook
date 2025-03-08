@@ -1,22 +1,21 @@
 """
-Text-to-Image Generation Agent using Azure OpenAI and SmalAgents.
+Using HuggingFace smolagents as agentic framework, Phoenix for tracing and Azure OpenAI as model provider.
+https://github.com/huggingface/smolagents
 
-This script sets up an AI agent capable of generating images from text descriptions
-using Azure OpenAI's language model and HuggingFace's text-to-image tools.
+Run phoenix server: python -m phoenix.server.main serve
 """
 
 import os
 from dotenv import load_dotenv
 from smolagents.models import AzureOpenAIServerModel
-from smolagents import CodeAgent, load_tool, GradioUI, DuckDuckGoSearchTool, ToolCallingAgent, VisitWebpageTool
+from smolagents import CodeAgent, load_tool, DuckDuckGoSearchTool, ToolCallingAgent, VisitWebpageTool
 
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 from openinference.instrumentation.smolagents import SmolagentsInstrumentor
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
+from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 
 endpoint = "http://0.0.0.0:6006/v1/traces"
 trace_provider = TracerProvider()
@@ -45,10 +44,11 @@ search_agent = ToolCallingAgent(
 manager_agent = CodeAgent(
     tools=[],
     model=model,
-    managed_agents=[search_agent],
+    managed_agents=[search_agent]
 )
-manager_agent.run(
-    "If the US keeps its 2024 growth rate, how many years will it take for the GDP to double?"
+output=manager_agent.run(
+    "Given the deficit of France in 2025, what can be done before the country goes bankrupt?"
 )
 
+print(output)
 # Navigate to http://0.0.0.0:6006/projects/ to inspect your run.
