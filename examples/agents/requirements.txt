@@ -10,5 +10,4 @@ openai
 azure-identity
 semantic-kernel
 smolagents
-gradio
 ipywidgets
