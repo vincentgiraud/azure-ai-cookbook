@@ -11,3 +11,6 @@ azure-identity
 semantic-kernel
 smolagents
 ipywidgets
+# MCP
+mcp[cli]
+aiohttp
