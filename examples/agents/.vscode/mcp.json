@@ -1,0 +1,17 @@
+{
+    "servers": {
+        // https://github.com/ppl-ai/modelcontextprotocol/
+        // replace /ABSOLUTE/PATH/TO/PARENT/FOLDER
+        "azure-agent": {
+            "command": "uv",
+            "args": [
+                "--directory",
+                "c:/Users/vgiraud/Repos/azure-ai-cookbook/examples/agents",
+                "run",
+                "-m",
+                "azure_agent_mcp_server"
+            ]
+        }
+    }
+}
+  
