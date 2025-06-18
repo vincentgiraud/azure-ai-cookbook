@@ -14,6 +14,10 @@ from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
 from semantic_kernel.contents import ChatHistoryTruncationReducer
 from semantic_kernel.functions import KernelFunctionFromPrompt
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 """
 The following sample demonstrates how to create a simple,
 agent group chat that utilizes a Reviewer Chat Completion
@@ -29,7 +33,12 @@ WRITER_NAME = "Writer"
 def create_kernel() -> Kernel:
     """Creates a Kernel instance with an Azure OpenAI ChatCompletion service."""
     kernel = Kernel()
-    kernel.add_service(service=AzureChatCompletion())
+    kernel.add_service(service=AzureChatCompletion(
+        deployment_name=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"),
+        api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
+        endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+        api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+    ))
     return kernel
 
 
