@@ -12,3 +12,12 @@ Add env vars to .env
 Add tools to Github Copilot agent in Visual Studio Code:
 ![alt text](image-2.png)
 ![alt text](image-1.png)
+
+Running the server standalone:
+
+```shell
+cd ../agents
+source .venv/Scripts/activate
+az login
+uv run -m azure_agent_mcp_server
+```

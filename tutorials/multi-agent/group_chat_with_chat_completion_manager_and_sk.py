@@ -37,11 +37,12 @@ filtering the results of the conversation, which is a summary of the discussion.
 """
 
 
-def get_agents() -> list[Agent]:
+def get_agents(chat_service:AzureChatCompletion) -> list[Agent]:
     """Return a list of agents that will participate in the group style discussion.
 
     Feel free to add or remove agents.
     """
+    
     farmer = ChatCompletionAgent(
         name="Farmer",
         description="A rural farmer from Southeast Asia.",
@@ -51,12 +52,7 @@ def get_agents() -> list[Agent]:
             "You value tradition and sustainability. "
             "You are in a debate. Feel free to challenge the other participants with respect."
         ),
-        service=AzureChatCompletion(
-            deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-            api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-            endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-            api_key=os.environ["AZURE_OPENAI_API_KEY"]
-        ),
+        service=chat_service
     )
     developer = ChatCompletionAgent(
         name="Developer",
@@ -67,12 +63,7 @@ def get_agents() -> list[Agent]:
             "You value innovation, freedom, and work-life balance. "
             "You are in a debate. Feel free to challenge the other participants with respect."
         ),
-        service=AzureChatCompletion(
-            deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-            api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-            endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-            api_key=os.environ["AZURE_OPENAI_API_KEY"]
-        ),
+        service=chat_service
     )
     teacher = ChatCompletionAgent(
         name="Teacher",
@@ -83,12 +74,7 @@ def get_agents() -> list[Agent]:
             "You value legacy, learning, and cultural continuity. "
             "You are in a debate. Feel free to challenge the other participants with respect."
         ),
-        service=AzureChatCompletion(
-            deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-            api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-            endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-            api_key=os.environ["AZURE_OPENAI_API_KEY"]
-        ),
+        service=chat_service
     )
     activist = ChatCompletionAgent(
         name="Activist",
@@ -98,12 +84,7 @@ def get_agents() -> list[Agent]:
             "You focus on social justice, environmental rights, and generational change. "
             "You are in a debate. Feel free to challenge the other participants with respect."
         ),
-        service=AzureChatCompletion(
-            deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-            api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-            endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-            api_key=os.environ["AZURE_OPENAI_API_KEY"]
-        ),
+        service=chat_service
     )
     spiritual_leader = ChatCompletionAgent(
         name="SpiritualLeader",
@@ -113,12 +94,7 @@ def get_agents() -> list[Agent]:
             "You provide insights grounded in religion, morality, and community service. "
             "You are in a debate. Feel free to challenge the other participants with respect."
         ),
-        service=AzureChatCompletion(
-            deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-            api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-            endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-            api_key=os.environ["AZURE_OPENAI_API_KEY"]
-        )
+        service=chat_service
     )
     artist = ChatCompletionAgent(
         name="Artist",
@@ -128,28 +104,18 @@ def get_agents() -> list[Agent]:
             "You view life through creative expression, storytelling, and collective memory. "
             "You are in a debate. Feel free to challenge the other participants with respect."
         ),
-        service=AzureChatCompletion(
-            deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-            api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-            endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-            api_key=os.environ["AZURE_OPENAI_API_KEY"]
-        ),
+        service=chat_service
     )
     immigrant = ChatCompletionAgent(
         name="Immigrant",
         description="An immigrant entrepreneur from Asia living in Canada.",
         instructions=(
             "You're an immigrant entrepreneur from Asia living in Canada. "
-            "You balance trandition with adaption. "
+            "You balance tradition with adaptation. "
             "You focus on family success, risk, and opportunity. "
             "You are in a debate. Feel free to challenge the other participants with respect."
         ),
-        service=AzureChatCompletion(
-            deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-            api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-            endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-            api_key=os.environ["AZURE_OPENAI_API_KEY"]
-        ),
+        service=chat_service
     )
     doctor = ChatCompletionAgent(
         name="Doctor",
@@ -159,12 +125,7 @@ def get_agents() -> list[Agent]:
             "Your perspective is shaped by public health, equity, and structured societal support. "
             "You are in a debate. Feel free to challenge the other participants with respect."
         ),
-        service=AzureChatCompletion(
-            deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-            api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-            endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-            api_key=os.environ["AZURE_OPENAI_API_KEY"]
-        ),
+        service=chat_service
     )
 
     return [farmer, developer, teacher, activist, spiritual_leader, artist, immigrant, doctor]
@@ -350,18 +311,21 @@ def agent_response_callback(message: ChatMessageContent) -> None:
 
 async def main():
     """Main function to run the agents."""
+
+    chat_service=AzureChatCompletion(
+        deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+        api_version=os.environ["AZURE_OPENAI_API_VERSION"],
+        endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+        api_key=os.environ["AZURE_OPENAI_API_KEY"]
+    )
+
     # 1. Create a group chat orchestration with the custom group chat manager
-    agents = get_agents()
+    agents = get_agents(chat_service)
     group_chat_orchestration = GroupChatOrchestration(
         members=agents,
         manager=ChatCompletionGroupChatManager(
             topic="What does a good life mean to you personally?",
-            service=AzureChatCompletion(
-                deployment_name=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-                api_version=os.environ["AZURE_OPENAI_API_VERSION"],
-                endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-                api_key=os.environ["AZURE_OPENAI_API_KEY"]
-            ),
+            service=chat_service,
             max_rounds=10,
         ),
         agent_response_callback=agent_response_callback,

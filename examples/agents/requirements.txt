@@ -1,6 +1,7 @@
 matplotlib
 python-dotenv
-azure-ai-projects
+azure-ai-agents>=1.1.0b4
+azure-ai-projects>=1.0.0b12
 ipykernel
 autogen_agentchat 
 autogen_core 
@@ -14,3 +15,5 @@ ipywidgets
 # MCP
 mcp[cli]
 aiohttp
+fastapi
+semantic-kernel[mcp]

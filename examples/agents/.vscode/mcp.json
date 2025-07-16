@@ -6,7 +6,7 @@
             "command": "uv",
             "args": [
                 "--directory",
-                "/ABSOLUTE/PATH/TO/PARENT/FOLDER",
+                "c:/Users/vgiraud/Repos/azure-ai-cookbook/examples/agents",
                 "run",
                 "-m",
                 "azure_agent_mcp_server"
