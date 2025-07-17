@@ -1,4 +1,5 @@
-import os, time
+import os
+import time
 from typing import Optional
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential

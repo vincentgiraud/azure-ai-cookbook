@@ -11,6 +11,15 @@
                 "-m",
                 "azure_agent_mcp_server"
             ]
+        },
+        "MCP_DOCKER": {
+            "command": "docker",
+            "args": [
+                "mcp",
+                "gateway",
+                "run"
+            ],
+            "type": "stdio"
         }
     }
 }
