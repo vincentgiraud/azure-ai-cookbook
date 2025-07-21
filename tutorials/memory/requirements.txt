@@ -1,0 +1,6 @@
+python-dotenv
+azure-search-documents
+azure-identity
+openai
+ipykernel
+mem0ai

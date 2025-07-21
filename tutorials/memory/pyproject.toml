@@ -1,0 +1,14 @@
+[project]
+name = "memory"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "azure-identity>=1.23.1",
+    "azure-search-documents>=11.5.3",
+    "ipykernel>=6.29.5",
+    "mem0ai>=0.1.114",
+    "openai>=1.97.0",
+    "python-dotenv>=1.1.1",
+]
