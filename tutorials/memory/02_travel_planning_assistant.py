@@ -152,7 +152,7 @@ print(f"User: {query1}")
 response1 = assistant.get_response(query1, memory_context=False)  # No memories yet
 print(f"Assistant: {response1}\n")
 
-# Second interaction - Specific question about fish and chips
+# Second interaction - Specific question about Chili crab
 query2 = "I need recommendations for Chili crab restaurants near Singapore Marina Bay cause I love the taste!"
 print(f"User: {query2}")
 response2 = assistant.get_response(query2)  # Should use memory context
